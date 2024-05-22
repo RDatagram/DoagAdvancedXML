@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet">
+    <Worksheet ss:Name="Sheet1">
+        <Table>
+
+            <Row>
+                <Cell>
+                    <Data ss:Type="String">Item</Data>
+                </Cell>
+                <Cell>
+                    <Data ss:Type="String">Quantity</Data>
+                </Cell>
+                <Cell><Data ss:Type="String">Amount</Data></Cell>
+            </Row>
+            <#list JSON.items as items>
+            <Row>
+            <Cell>
+                <Data ss:Type="Number">Item</Data>
+            </Cell>
+            <Cell>
+                <Data ss:Type="Number">${items.quantity}</Data>
+            </Cell>
+            <Cell>
+                <Data ss:Type="Number">${items.amount}</Data>
+            </Cell>
+            </Row>
+        </#list>
+        </Table>
+    </Worksheet>
+</Workbook>

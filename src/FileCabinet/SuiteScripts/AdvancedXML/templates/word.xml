@@ -1,3 +1,7 @@
+<!--
+http://officeopenxml.com/WPsampleDoc.php
+-->
+
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <?mso-application progid="Word.Document"?>
 <pkg:package xmlns:pkg="http://schemas.microsoft.com/office/2006/xmlPackage">

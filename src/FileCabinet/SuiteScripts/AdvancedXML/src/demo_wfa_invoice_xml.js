@@ -19,7 +19,7 @@ define(['N/render', 'N/file'],
          */
         const onAction = (scriptContext) => {
             const xmlTemplateFile = file.load({
-                id : '../templates/word.template.xml'
+                id : '../templates/excel.xml'
             });
             const  xmlTemplate = xmlTemplateFile.getContents();
             const renderer = render.create();
@@ -71,7 +71,7 @@ define(['N/render', 'N/file'],
             // render as string
             const renderedContent = renderer.renderAsString();
             const xlsFile = file.create({
-                name: 'invoice.doc',
+                name: 'invoice.xls',
                 fileType: file.Type.XMLDOC,
                 contents: renderedContent
             });
