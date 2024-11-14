@@ -3,6 +3,7 @@
  * @NScriptType WorkflowActionScript
  */
 define(['N/render', 'N/file'],
+
     /**
  * @param{render} render
      * @param file
@@ -34,9 +35,9 @@ define(['N/render', 'N/file'],
             jsonData.items = [];
 
             for (let i = 0; i < numberOfLines; i++) {
-                const itemId = scriptContext.newRecord.getSublistValue({
+                const description = scriptContext.newRecord.getSublistValue({
                     sublistId: 'item',
-                    fieldId: 'item',
+                    fieldId: 'description',
                     line: i
                 });
 
@@ -54,12 +55,12 @@ define(['N/render', 'N/file'],
 
                 jsonData.items.push(
                     {
-                        "item" : itemId,
+                        "description" : description,
                         "quantity" : quantity,
                         "amount" : amount
                     }
                 )
-                log.debug('Item: ' + itemId + ', Quantity: ' + quantity);
+                log.debug('Item: ' + description + ', Quantity: ' + quantity);
             }
 
 

@@ -276,7 +276,7 @@
    <#list JSON.items as items>
    <Row ss:AutoFitHeight="0">
     <Cell ss:StyleID="s23"/>
-    <Cell ss:StyleID="s24"><Data ss:Type="String">Item1</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">${items.description}</Data></Cell>
     <Cell ss:StyleID="s29"><Data ss:Type="Number">${items.quantity}</Data></Cell>
     <Cell ss:StyleID="s29"><Data ss:Type="Number">${items.amount}</Data></Cell>
     <Cell ss:StyleID="s25"/>
