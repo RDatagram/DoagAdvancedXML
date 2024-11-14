@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Invoice xmlns:cec="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2"
+         xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+         xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+         xmlns:sbt="http://mfin.gov.rs/srbdt/srbdtext" xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2">
+    <cbc:CustomizationID>urn:cen.eu:en16931:2017#compliant#urn:mfin.gov.rs:srbdt:2021</cbc:CustomizationID>
+    <cbc:ID>${JSON.sinvObj["ef_invoice_id"]}</cbc:ID>
+    <cbc:IssueDate>${JSON.sinvObj["IssueDate"]}</cbc:IssueDate>
+    <cbc:DueDate>${JSON.sinvObj["DueDate"]}</cbc:DueDate>
+    <cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode>
+    <cbc:Note></cbc:Note>
+    <cbc:DocumentCurrencyCode>RSD</cbc:DocumentCurrencyCode>
+    <cac:InvoicePeriod>
+        <cbc:DescriptionCode>35</cbc:DescriptionCode>
+    </cac:InvoicePeriod>
+    <cac:AccountingSupplierParty>
+        <cac:Party>
+            <cbc:EndpointID schemeID="${JSON.sinvObj.AccountingSupplierParty.Party.EndpointID.schemeID}">${JSON.sinvObj.AccountingSupplierParty.Party.EndpointID.value}</cbc:EndpointID>
+            <cac:PartyName>
+                <cbc:Name>${JSON.sinvObj.AccountingSupplierParty.Party.PartyName.Name}</cbc:Name>
+            </cac:PartyName>
+            <cac:PostalAddress>
+                <cbc:StreetName>Dr. Ivana Ribara 1</cbc:StreetName>
+                <cbc:CityName>NOVI SAD</cbc:CityName>
+                <cac:Country>
+                    <cbc:IdentificationCode>RS</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+            <cac:PartyTaxScheme>
+                <cbc:CompanyID>${JSON.sinvObj.AccountingSupplierParty.Party.PartyTaxScheme.CompanyID}</cbc:CompanyID>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:PartyTaxScheme>
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName>${JSON.sinvObj.AccountingSupplierParty.Party.PartyLegalEntity.RegistrationName}</cbc:RegistrationName>
+                <cbc:CompanyID>${JSON.sinvObj.AccountingSupplierParty.Party.PartyLegalEntity.CompanyID}</cbc:CompanyID>
+            </cac:PartyLegalEntity>
+        </cac:Party>
+    </cac:AccountingSupplierParty>
+    <cac:AccountingCustomerParty>
+        <cac:Party>
+            <cbc:EndpointID schemeID="${JSON.sinvObj.AccountingCustomerParty.Party.EndpointID.schemeID}">${JSON.sinvObj.AccountingCustomerParty.Party.EndpointID.value}</cbc:EndpointID>
+            <cac:PartyName>
+                <cbc:Name>${JSON.sinvObj.AccountingCustomerParty.Party.PartyName.Name}</cbc:Name>
+            </cac:PartyName>
+            <cac:PostalAddress>
+                <cbc:StreetName>${JSON.sinvObj.AccountingCustomerParty.Party.PostalAddress.StreetName}</cbc:StreetName>
+                <cbc:CityName>${JSON.sinvObj.AccountingCustomerParty.Party.PostalAddress.CityName}</cbc:CityName>
+                <cbc:PostalZone>${JSON.sinvObj.AccountingCustomerParty.Party.PostalAddress.PostalZone}</cbc:PostalZone>
+                <cac:Country>
+                    <cbc:IdentificationCode>RS</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+            <cac:PartyTaxScheme>
+                <cbc:CompanyID>${JSON.sinvObj.AccountingCustomerParty.Party.PartyTaxScheme.CompanyID}</cbc:CompanyID>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:PartyTaxScheme>
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName>${JSON.sinvObj.AccountingCustomerParty.Party.PartyLegalEntity.RegistrationName}</cbc:RegistrationName>
+                <cbc:CompanyID>${JSON.sinvObj.AccountingCustomerParty.Party.PartyLegalEntity.CompanyID}</cbc:CompanyID>
+            </cac:PartyLegalEntity>
+        </cac:Party>
+    </cac:AccountingCustomerParty>
+    <cac:Delivery>
+        <cbc:ActualDeliveryDate>2023-05-19</cbc:ActualDeliveryDate>
+    </cac:Delivery>
+    <cac:PaymentMeans>
+        <cbc:PaymentMeansCode>30</cbc:PaymentMeansCode>
+        <cbc:PaymentID>${JSON.sinvObj["ef_invoice_id"]}</cbc:PaymentID>
+        <cac:PayeeFinancialAccount>
+            <cbc:ID>220000000006906783</cbc:ID>
+        </cac:PayeeFinancialAccount>
+    </cac:PaymentMeans>
+    <cac:TaxTotal>
+        <#assign taxtotal=JSON.sinvObj.TaxTotal>
+        <cbc:TaxAmount currencyID="RSD">${taxtotal.TaxAmount}</cbc:TaxAmount>
+        <#list taxtotal.subtotals as subtotals>
+        <cac:TaxSubtotal>
+            <cbc:TaxableAmount currencyID="RSD">${subtotals.TaxableAmount}</cbc:TaxableAmount>
+            <cbc:TaxAmount currencyID="RSD">${subtotals.TaxAmount}</cbc:TaxAmount>
+            <cac:TaxCategory>
+                <cbc:ID>${subtotals.TaxCategory.ID}</cbc:ID>
+                <cbc:Percent>${subtotals.TaxCategory.Percent}</cbc:Percent>
+                <cbc:TaxExemptionReasonCode>${subtotals.TaxCategory.TaxExemptionReasonCode}</cbc:TaxExemptionReasonCode>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:TaxCategory>
+        </cac:TaxSubtotal>
+        </#list>
+    </cac:TaxTotal>
+    <cac:LegalMonetaryTotal>
+        <cbc:LineExtensionAmount currencyID="RSD">${JSON.sinvObj.LegalMonetaryTotal.LineExtensionAmount.value}</cbc:LineExtensionAmount>
+        <cbc:TaxExclusiveAmount currencyID="RSD">${JSON.sinvObj.LegalMonetaryTotal.TaxExclusiveAmount.value}</cbc:TaxExclusiveAmount>
+        <cbc:TaxInclusiveAmount currencyID="RSD">${JSON.sinvObj.LegalMonetaryTotal.TaxInclusiveAmount.value}</cbc:TaxInclusiveAmount>
+        <cbc:AllowanceTotalAmount currencyID="RSD">0.0000</cbc:AllowanceTotalAmount>
+        <cbc:PrepaidAmount currencyID="RSD">0.00</cbc:PrepaidAmount>
+        <cbc:PayableAmount currencyID="RSD">${JSON.sinvObj.LegalMonetaryTotal.TaxInclusiveAmount.value}</cbc:PayableAmount>
+    </cac:LegalMonetaryTotal>
+    <#list JSON.sinvObj.InvoiceLines as iline>
+    <cac:InvoiceLine>
+        <cbc:ID>${iline.ID}</cbc:ID>
+        <cbc:InvoicedQuantity unitCode="${iline.InvoicedQuantity.unitCode}">${iline.InvoicedQuantity.value}</cbc:InvoicedQuantity>
+        <cbc:LineExtensionAmount currencyID="${iline.LineExtensionAmount.currencyID}">${iline.LineExtensionAmount.value}</cbc:LineExtensionAmount>
+        <cac:Item>
+            <cbc:Name>${iline.Item.Name}</cbc:Name>
+            <cac:SellersItemIdentification>
+                <cbc:ID>${iline.Item.SellersItemIdentification.ID}</cbc:ID>
+            </cac:SellersItemIdentification>
+            <cac:ClassifiedTaxCategory>
+                <cbc:ID>${iline.Item.ClassifiedTaxCategory.ID}</cbc:ID>
+                <cbc:Percent>${iline.Item.ClassifiedTaxCategory.Percent}</cbc:Percent>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:ClassifiedTaxCategory>
+        </cac:Item>
+        <cac:Price>
+            <cbc:PriceAmount currencyID="${iline.Price.PriceAmount.currencyID}">${iline.Price.PriceAmount.value}</cbc:PriceAmount>
+        </cac:Price>
+    </cac:InvoiceLine>
+    </#list>
+</Invoice>
